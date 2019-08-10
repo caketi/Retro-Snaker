@@ -1,22 +1,22 @@
 import pygame
 import sys
 import random
-pygame.init()  # 初始化pygame
-size = width, height = 640, 480  # 设置窗口大小
-screen = pygame.display.set_mode(size)  # 显示窗口
-body = pygame.image.load('body.png')  # 加载图片
+pygame.init()
+size = width, height = 640, 480 
+screen = pygame.display.set_mode(size) 
+body = pygame.image.load('body.png')
 food=pygame.image.load('food.png')
 head=pygame.image.load('head.png')
 phead=head.get_rect()
 pfood=food.get_rect()
 pbody=[]
-speed = [0, 0]  # 设置移动的X轴、Y轴
-clock = pygame.time.Clock()  # 设置时钟
+speed = [0, 0]
+clock = pygame.time.Clock()
 phead=phead.move(320,224)
 score=0
 flag=0
 mflag=1
-while True:  # 死循环确保窗口一直显示
+while True:
     clock.tick(6)
     temp=body.get_rect()
     temp=temp.move(phead.left,phead.top)
@@ -31,8 +31,8 @@ while True:  # 死循环确保窗口一直显示
                 break
             elif pfood in pbody:
                 print("bug")
-    for event in pygame.event.get():  # 遍历所有事件
-        if event.type == pygame.QUIT:  # 如果单击关闭窗口，则退出
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             sys.exit()
         elif event.type==pygame.KEYDOWN:
             if mflag==1:
@@ -53,6 +53,7 @@ while True:  # 死循环确保窗口一直显示
     if phead.left==pfood.left and phead.top==pfood.top:
         flag=0
         score=score+1
+        pygame.display.set_caption(str(score)+"分")
         if score==9600-1:
             print("You Win")
             break
@@ -62,17 +63,17 @@ while True:  # 死循环确保窗口一直显示
     if phead.left < 0 or phead.right > width or phead.top < 0 or phead.bottom > height:
         print("GameOver")
         break
-    screen.fill((0,0,0))  # 填充颜色(设置为0，执不执行这行代码都一样)
+    screen.fill((0,0,0))
     screen.blit(food, pfood)
     for i in pbody:
         screen.blit(body,i)
     screen.blit(head, phead)
-    pygame.display.flip()  # 更新全部显示
+    pygame.display.flip()
     if phead in pbody:
         print("GameOver")
         break
 while True:
     clock.tick(2)
-    for event in pygame.event.get():  # 遍历所有事件
-        if event.type == pygame.QUIT:  # 如果单击关闭窗口，则退出
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             sys.exit()
